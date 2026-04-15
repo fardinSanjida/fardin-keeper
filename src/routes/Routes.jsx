@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router";
 import Homepage from '../pages/homepages/Homepage';
 import Friends from '../pages/friends/Friends';
 import MainLayout from '../layout/MainLayout';
+import Error from '../pages/error/Error';
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ export const router = createBrowserRouter([
         element: <Friends />,
       }
 
-    ]
+    ],
+    errorElement:<Error/>         
   },
 ]);
