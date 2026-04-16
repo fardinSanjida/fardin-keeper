@@ -7,6 +7,7 @@ import { MdOutlineWifiCalling3 } from "react-icons/md";
 import { FaVideo } from "react-icons/fa";
 import { IoMdText } from "react-icons/io";
 import Footer from '../../componenets/footer/Footer';
+import { useState } from 'react';
 
 
 
@@ -15,9 +16,10 @@ const FriendDetails = () => {
     const { id } = useParams();
     
    const friends = useLoaderData();
-    const expectedFriend = friends.find(friend => friend.id === parseInt(id));
+   const expectedFriend = friends.find(friend => friend.id === parseInt(id));
     console.log(expectedFriend,"expectedFriend");
   
+    const [storelist, setStorelist] = useState([]);
     
 
     return (
@@ -71,19 +73,19 @@ const FriendDetails = () => {
                     <div className='bg-white p-6 pb-7 rounded-xl'>
                      <h4 className='text-2xl border-grey-100 pt-3 '> Quick Check-In</h4>
                      <div className='grid md:grid-cols-3 gap-6 mt-4 '>
-                       <div className=' border border-gray-100 bg-white items-center justify-center flex flex-col gap-2 mt-4'>
+                       <a className=' border border-gray-200 rounded-xl bg-base-200  items-center justify-center flex flex-col gap-2 mt-4'>
                             <h4 className=' mt-4 border-grey-100'> <MdOutlineWifiCalling3/></h4>
                             <p className='text-center mb-4 text-xl font-semibold text-black'>Call</p>
-                        </div>
-                         <div className=' border border-gray-100 bg-white items-center justify-center flex flex-col gap-2 mt-4 '>
+                        </a>
+                         <a className=' border border-gray-200 rounded-xl bg-base-200  items-center justify-center flex flex-col gap-2 mt-4 '>
                             <h4 className='  mt-4 border-grey-100'> <IoMdText /></h4>
                             <p className='text-center mb-4 text-xl font-semibold text-black'>Text</p>
-                        </div>
+                        </a>
                         
-                         <div className=' border border-gray-100 bg-white items-center justify-center flex flex-col gap-2 mt-4 '>
+                         <a className=' border border-gray-200 rounded-xl  bg-base-200 items-center justify-center flex flex-col gap-2 mt-4 '>
                             <h4 className=' mt-4 border-grey-100'> <FaVideo /></h4>
                             <p className='text-center mb-4 text-xl font-semibold text-black'>Video</p>
-                        </div>
+                        </a>
                         
                         
 
