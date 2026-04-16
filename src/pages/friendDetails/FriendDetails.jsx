@@ -6,6 +6,7 @@ import { TiArchive } from "react-icons/ti";
 import { MdOutlineWifiCalling3 } from "react-icons/md";
 import { FaVideo } from "react-icons/fa";
 import { IoMdText } from "react-icons/io";
+import Footer from '../../componenets/footer/Footer';
 
 
 
@@ -96,6 +97,7 @@ const FriendDetails = () => {
                            
                 </div>
             )}
+             <Footer />
         </div>
     );
 };
