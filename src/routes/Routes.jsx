@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router";
 import Homepage from '../pages/homepages/Homepage';
-import Friends from '../pages/friends/Friends';
 import Timeline from '../pages/timeline/Timeline';
 import Stats from '../pages/stats/Stats';
 import MainLayout from '../layout/MainLayout';
@@ -17,10 +16,6 @@ export const router = createBrowserRouter([
         element: <Homepage/>, 
       },
       {
-        path: "/friends",
-        element: <Friends />,
-      },
-      {
         path: "/timeline",
         element: <Timeline />,
       },
@@ -29,9 +24,8 @@ export const router = createBrowserRouter([
         element: <Stats />,
       },
       {
-        path: "/friendDetails/:id",
+        path: "/friends/:id",
         element: <FriendDetails />,
-        loader: () => fetch('/friendsData.json').then(res => res.json())
       }
 
     ],
