@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "name": "Alex Johnson",
+    "picture": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=400",
+    "email": "alex.johnson@gmail.com",
+    "days_since_contact": 12,
+    "status": "almost due",
+    "tags": ["college", "close friend"],
+    "bio": "Alex was my debate partner at university and still sends me voice notes after every Arsenal match.",
+    "goal": 14,
+    "next_due_date": "2026-04-18"
+  },
+  {
+    "id": 2,
+    "name": "Sarah Chen",
+    "picture": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=400",
+    "email": "sarah.chen@outlook.com",
+    "days_since_contact": 4,
+    "status": "on-track",
+    "tags": ["work", "mentor"],
+    "bio": "Sarah led my first product team and now checks in whenever I am stuck on a career decision.",
+    "goal": 10,
+    "next_due_date": "2026-04-22"
+  },
+  {
+    "id": 3,
+    "name": "Nadia Rahman",
+    "picture": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=400",
+    "email": "nadia.rahman@proton.me",
+    "days_since_contact": 21,
+    "status": "overdue",
+    "tags": ["family friend", "travel"],
+    "bio": "Nadia and I grew up on the same block, and every long catch-up somehow turns into planning another Sylhet trip.",
+    "goal": 14,
+    "next_due_date": "2026-04-09"
+  },
+  {
+    "id": 4,
+    "name": "Olivia Martinez",
+    "picture": "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&q=80&w=400",
+    "email": "olivia.martinez@icloud.com",
+    "days_since_contact": 7,
+    "status": "almost due",
+    "tags": ["creative", "design"],
+    "bio": "Olivia is the friend who reviews my portfolio drafts and always has a sharp opinion about typography.",
+    "goal": 7,
+    "next_due_date": "2026-04-16"
+  },
+  {
+    "id": 5,
+    "name": "Tom Baker",
+    "picture": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=400",
+    "email": "tom.baker@fastmail.com",
+    "days_since_contact": 2,
+    "status": "on-track",
+    "tags": ["startup", "gym"],
+    "bio": "Tom is my old coworker turned workout buddy, and he keeps trying to convince me to launch a side project with him.",
+    "goal": 9,
+    "next_due_date": "2026-04-23"
+  },
+  {
+    "id": 6,
+    "name": "Marcus Rivera",
+    "picture": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400",
+    "email": "marcus.rivera@yahoo.com",
+    "days_since_contact": 18,
+    "status": "overdue",
+    "tags": ["neighbor", "basketball"],
+    "bio": "Marcus and I play pickup basketball when he is in town, and he somehow always knows the best roadside food spots.",
+    "goal": 12,
+    "next_due_date": "2026-04-11"
+  },
+  {
+    "id": 7,
+    "name": "Lisa Nakamura",
+    "picture": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&q=80&w=400",
+    "email": "lisa.nakamura@me.com",
+    "days_since_contact": 5,
+    "status": "on-track",
+    "tags": ["book club", "long distance"],
+    "bio": "Lisa lives in Osaka now, and our friendship survives on chaotic book club calls and screenshots of half-read pages.",
+    "goal": 8,
+    "next_due_date": "2026-04-19"
+  },
+  {
+    "id": 8,
+    "name": "Aisha Patel",
+    "picture": "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=400",
+    "email": "aisha.patel@gmail.com",
+    "days_since_contact": 15,
+    "status": "overdue",
+    "tags": ["volunteer", "close friend"],
+    "bio": "Aisha and I met during a literacy volunteer program, and she is still the first person I call when something big happens.",
+    "goal": 10,
+    "next_due_date": "2026-04-13"
+  }
+]

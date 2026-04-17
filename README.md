@@ -1,16 +1,61 @@
-# React + Vite
+# KeenKeeper
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+KeenKeeper is a responsive friendship dashboard built with React and Vite. It helps users keep meaningful relationships active by tracking contact frequency, reviewing interaction history, and logging quick check-ins from each friend's detail page.
 
-Currently, two official plugins are available:
+## Live Project Focus
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Track friends with realistic profile data and contact goals
+- Log `call`, `text`, and `video` interactions directly from the detail page
+- Visualize interaction patterns on an analytics page with Recharts
 
-## React Compiler
+## Technologies Used
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19
+- React Router
+- Tailwind CSS
+- DaisyUI
+- React Icons
+- Recharts
+- Vite
 
-## Expanding the ESLint configuration
+## Key Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- A dashboard-style home page with a custom navbar, banner, summary cards, and responsive friend grid
+- A friend detail page with quick check-in actions that create timeline entries and trigger toast notifications
+- A timeline and analytics flow powered by shared app state and persisted with `localStorage`
+
+## Data
+
+Friend profiles are loaded from [`public/friends.json`](public/friends.json). The project includes realistic names, tags, bios, goals, and next follow-up dates using the required status values:
+
+- `overdue`
+- `almost due`
+- `on-track`
+
+## Pages Included
+
+- Home
+- Friend Details
+- Timeline
+- Friendship Analytics
+- 404 Error Page
+
+## Extra Touches
+
+- Timeline filtering by interaction type
+- Timeline search and sort controls
+- Home page loading spinner while friend data is fetched
+- SPA redirect support via [`public/_redirects`](public/_redirects)
+
+## Run Locally
+
+```bash
+npm install
+npm run dev
+```
+
+## Build
+
+```bash
+npm run build
+```

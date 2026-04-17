@@ -1,24 +1,27 @@
-import React, { use } from 'react';
+import React from 'react';
 import FriendCart from '../ui/FriendCart';
-
-
-const friendPromise = fetch('/friendsData.json').then(res => res.json());
+import LoadingSpinner from '../ui/LoadingSpinner';
+import { useAppContext } from '../../context/AppContext';
 
 const AllFriends = () => {
-    const friends =use(friendPromise);
-    console.log(friends,"friends");
+    const { friends, loadingFriends } = useAppContext();
+
     return (
-        <div className='my-12'>
-            <h1 className='text-3xl font-bold text-center mb-6'>All Friends</h1>
-            <div className='w-[80%] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 mx-auto gap-6 mt-20'>
-                {friends.map((friend) => (
-                   <FriendCart key={friend.id} friend={friend} />     
-                ))}
+        <section className="px-4 pb-8 pt-2 sm:px-8">
+            <div className="mb-4">
+                <h2 className="text-3xl font-semibold text-slate-800">Your Friends</h2>
             </div>
-            
-            
-            
-        </div>
+
+            {loadingFriends ? (
+                <LoadingSpinner />
+            ) : (
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+                    {friends.map((friend) => (
+                        <FriendCart key={friend.id} friend={friend} />
+                    ))}
+                </div>
+            )}
+        </section>
     );
 };
 

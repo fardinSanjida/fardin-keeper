@@ -56,23 +56,12 @@ const Timeline = () => {
     return (
         <section className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
             <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-                <h1 className="text-center text-4xl font-black tracking-tight text-slate-900">
+                <h1 className="text-center text-4xl font-bold tracking-tight text-slate-900">
                     Timeline
                 </h1>
-                <p className="mx-auto mt-3 max-w-2xl text-center text-sm leading-7 text-slate-500">
-                    Browse every interaction across your friendships, then filter by type or search by name.
-                </p>
-
+               
                 <div className="mt-8 grid gap-3 md:grid-cols-[1.2fr_0.7fr_0.7fr]">
-                    <label className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
-                        <FiSearch className="text-slate-400" />
-                        <input
-                            value={searchTerm}
-                            onChange={(event) => setSearchTerm(event.target.value)}
-                            placeholder="Search friend or interaction"
-                            className="w-full bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400"
-                        />
-                    </label>
+                 
 
                     <select
                         value={selectedType}

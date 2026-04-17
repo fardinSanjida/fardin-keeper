@@ -1,53 +1,42 @@
 import React from 'react';
-import { NavLink, useLocation } from 'react-router';
-import { RiHome2Line, RiTimeLine } from "react-icons/ri";
-import { ImStatsDots } from "react-icons/im";
+import { Link, NavLink } from 'react-router';
+import { RiHome5Line, RiLineChartLine, RiTimeLine } from "react-icons/ri";
 
 const Navbar = () => {
-    const location = useLocation();
-
-    const isTimelineActive = location.pathname === '/timeline';
-    const isStatsActive = location.pathname === '/stats';
-    // Home is active if neither Timeline nor Stats is active
-    const isHomeActive = !isTimelineActive && !isStatsActive;
-
-    const activeClass = "btn bg-green-800 text-white border-0 shadow-lg scale-105";
-    const inactiveClass = "btn btn-ghost border-0 text-gray-600";
+    const navItems = [
+        { to: '/', label: 'Home', icon: RiHome5Line, end: true },
+        { to: '/timeline', label: 'Timeline', icon: RiTimeLine },
+        { to: '/stats', label: 'Stats', icon: RiLineChartLine },
+    ];
 
     return (
-        <div className="navbar bg-base-100 shadow-sm px-4">
-            <div className="navbar-start">
-                <a className="btn btn-ghost font-bold text-2xl tracking-tight">
-                    Keen<span className='text-green-800'>Keeper</span>
-                </a>
+        <header className="top-0 z-40 border-b-2 border-gray-200 bg-white">
+            <div className="flex w-full items-center justify-between gap-4 px-8 py-3 sm:px-10 lg:px-12">
+                <Link to="/" className="shrink-0">
+                    <p className="text-2xl font-bold tracking-tight text-slate-800">Keen<span className='text-green-900'>Keeper</span></p>
+                </Link>
+
+                <nav className="ml-auto flex flex-wrap items-center justify-end gap-4">
+                    {navItems.map(({ to, label, icon, end }) => (
+                        <NavLink
+                            key={to}
+                            to={to}
+                            end={end}
+                            className={({ isActive }) =>
+                                `inline-flex items-center gap-1.5 rounded-sm px-3 py-2 text-sm font-medium transition ${
+                                    isActive
+                                        ? 'bg-emerald-800 text-white'
+                                        : 'text-slate-500 hover:text-slate-800'
+                                }`
+                            }
+                        >
+                            {React.createElement(icon, { className: 'text-sm' })}
+                            <span>{label}</span>
+                        </NavLink>
+                    ))}
+                </nav>
             </div>
-            <div className="navbar-end gap-2">
-                <NavLink 
-                    to="/" 
-                    className={isHomeActive ? activeClass : inactiveClass}
-                >
-                    <RiHome2Line className="text-lg" />
-                    <span className="hidden sm:inline">Home</span>
-                </NavLink>
-
-                <NavLink 
-                    to="/timeline" 
-                    className={({ isActive }) => isActive ? activeClass : inactiveClass}
-                >
-                    <RiTimeLine className="text-lg" />
-                    <span className="hidden sm:inline">Timeline</span>
-                </NavLink>
-
-                <NavLink 
-                    to="/stats" 
-                    className={({ isActive }) => isActive ? activeClass : inactiveClass}
-                >
-                    <ImStatsDots className="text-lg" />
-                    <span className="hidden sm:inline">Stats</span>
-                </NavLink>
-                </div>
-
-        </div>
+        </header>
     );
 };
 
