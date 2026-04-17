@@ -1,108 +1,135 @@
-import React, { useState } from 'react';
-import {
-    FaHandshake,
-    FaPhoneAlt,
-    FaRegCommentDots,
-    FaVideo
-} from 'react-icons/fa';
-import Footer from '../../componenets/footer/Footer';
+import React, { useMemo, useState } from 'react';
+import { FiCalendar, FiPhoneCall, FiSearch, FiVideo } from 'react-icons/fi';
+import { HiOutlineChatBubbleOvalLeftEllipsis } from 'react-icons/hi2';
+import { FaHandshake } from 'react-icons/fa6';
+import { useAppContext } from '../../context/AppContext';
 
-const timelineEntries = [
-    { id: 1, type: 'meet-up', label: 'Meetup', friend: 'Tom Baker', date: 'March 29, 2026' },
-    { id: 2, type: 'text', label: 'Text', friend: 'Sarah Chen', date: 'March 28, 2026' },
-    { id: 3, type: 'meet-up', label: 'Meetup', friend: 'Olivia Martinez', date: 'March 26, 2026' },
-    { id: 4, type: 'video call', label: 'Video', friend: 'Aisha Patel', date: 'March 23, 2026' },
-    { id: 5, type: 'meet-up', label: 'Meetup', friend: 'Sarah Chen', date: 'March 21, 2026' },
-    { id: 6, type: 'call', label: 'Call', friend: 'Marcus Johnson', date: 'March 19, 2026' },
-    { id: 7, type: 'meet-up', label: 'Meetup', friend: 'Aisha Patel', date: 'March 17, 2026' },
-    { id: 8, type: 'text', label: 'Text', friend: 'Olivia Martinez', date: 'March 13, 2026' },
-    { id: 9, type: 'call', label: 'Call', friend: 'Lisa Nakamura', date: 'March 11, 2026' }
+const filterOptions = [
+    { value: 'all', label: 'All activities' },
+    { value: 'call', label: 'Call' },
+    { value: 'text', label: 'Text' },
+    { value: 'video', label: 'Video' },
+    { value: 'meet-up', label: 'Meet-up' },
 ];
 
 const activityConfig = {
-    'meet-up': {
-        icon: FaHandshake,
-        iconClass: 'text-amber-500',
-    },
-    text: {
-        icon: FaRegCommentDots,
-        iconClass: 'text-slate-500',
-    },
-    call: {
-        icon: FaPhoneAlt,
-        iconClass: 'text-slate-700',
-    },
-    'video call': {
-        icon: FaVideo,
-        iconClass: 'text-slate-700',
-    },
+    call: { icon: FiPhoneCall, iconClass: 'text-emerald-700 bg-emerald-100' },
+    text: { icon: HiOutlineChatBubbleOvalLeftEllipsis, iconClass: 'text-sky-700 bg-sky-100' },
+    video: { icon: FiVideo, iconClass: 'text-violet-700 bg-violet-100' },
+    'meet-up': { icon: FaHandshake, iconClass: 'text-amber-700 bg-amber-100' },
 };
 
-const filterOptions = [
-    { value: 'all', label: 'Filter timeline' },
-    { value: 'meet-up', label: 'Meetups' },
-    { value: 'text', label: 'Texts' },
-    { value: 'call', label: 'Calls' },
-    { value: 'video call', label: 'Video calls' },
-];
-
-const TimelineCard = ({ entry }) => {
-    const { icon: Icon, iconClass } = activityConfig[entry.type];
-
-    return (
-        <article className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] items-center gap-3 rounded-sm border border-dashed border-sky-400 bg-white px-4 py-3 shadow-[0_0_0_1px_rgba(255,255,255,0.7)] sm:px-6">
-            <div className="flex items-center gap-3 text-slate-800">
-                <Icon className={`shrink-0 text-xl ${iconClass}`} />
-                <span className="text-sm font-medium sm:text-base">{entry.label}</span>
-            </div>
-            <div className="text-center text-xs text-slate-500 sm:text-sm">
-                <p>with {entry.friend}</p>
-                <p className="mt-1">{entry.date}</p>
-            </div>
-        </article>
-    );
-};
+const formatDate = (dateString) =>
+    new Intl.DateTimeFormat('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+    }).format(new Date(dateString));
 
 const Timeline = () => {
+    const { timelineEntries } = useAppContext();
     const [selectedType, setSelectedType] = useState('all');
+    const [searchTerm, setSearchTerm] = useState('');
+    const [sortOrder, setSortOrder] = useState('newest');
 
-    const visibleEntries =
-        selectedType === 'all'
-            ? timelineEntries
-            : timelineEntries.filter((entry) => entry.type === selectedType);
+    const visibleEntries = useMemo(() => {
+        const normalizedSearch = searchTerm.trim().toLowerCase();
+
+        const filteredEntries = timelineEntries.filter((entry) => {
+            const matchesType = selectedType === 'all' || entry.type === selectedType;
+            const matchesSearch =
+                normalizedSearch.length === 0 ||
+                entry.title.toLowerCase().includes(normalizedSearch) ||
+                entry.friendName.toLowerCase().includes(normalizedSearch) ||
+                entry.type.toLowerCase().includes(normalizedSearch);
+
+            return matchesType && matchesSearch;
+        });
+
+        return [...filteredEntries].sort((a, b) =>
+            sortOrder === 'newest'
+                ? new Date(b.date).getTime() - new Date(a.date).getTime()
+                : new Date(a.date).getTime() - new Date(b.date).getTime()
+        );
+    }, [searchTerm, selectedType, sortOrder, timelineEntries]);
 
     return (
-        <div className="min-h-screen bg-[#f3f4f6] pt-10">
-            <section className="mx-auto w-full max-w-5xl px-4 pb-14 sm:px-6 lg:px-8">
-                <div className="rounded-sm border border-dashed border-sky-400 bg-[#f6f7fb] px-4 py-8 sm:px-10">
-                    <h1 className="text-center text-4xl font-bold tracking-tight text-slate-800">
-                        Timeline
-                    </h1>
+        <section className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
+            <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+                <h1 className="text-center text-4xl font-black tracking-tight text-slate-900">
+                    Timeline
+                </h1>
+                <p className="mx-auto mt-3 max-w-2xl text-center text-sm leading-7 text-slate-500">
+                    Browse every interaction across your friendships, then filter by type or search by name.
+                </p>
 
-                    <div className="mt-8">
-                        <select
-                            value={selectedType}
-                            onChange={(event) => setSelectedType(event.target.value)}
-                            className="w-full max-w-xs rounded-md border border-slate-200 bg-white px-4 py-2 text-sm text-slate-500 outline-none transition focus:border-sky-400"
+                <div className="mt-8 grid gap-3 md:grid-cols-[1.2fr_0.7fr_0.7fr]">
+                    <label className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
+                        <FiSearch className="text-slate-400" />
+                        <input
+                            value={searchTerm}
+                            onChange={(event) => setSearchTerm(event.target.value)}
+                            placeholder="Search friend or interaction"
+                            className="w-full bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400"
+                        />
+                    </label>
+
+                    <select
+                        value={selectedType}
+                        onChange={(event) => setSelectedType(event.target.value)}
+                        className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600 outline-none"
+                    >
+                        {filterOptions.map((option) => (
+                            <option key={option.value} value={option.value}>
+                                {option.label}
+                            </option>
+                        ))}
+                    </select>
+
+                    <select
+                        value={sortOrder}
+                        onChange={(event) => setSortOrder(event.target.value)}
+                        className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600 outline-none"
+                    >
+                        <option value="newest">Newest first</option>
+                        <option value="oldest">Oldest first</option>
+                    </select>
+                </div>
+            </div>
+
+            <div className="mt-5 space-y-3">
+                {visibleEntries.map((entry) => {
+                    const { icon: Icon, iconClass } = activityConfig[entry.type];
+
+                    return (
+                        <article
+                            key={entry.id}
+                            className="grid gap-4 rounded-[1.5rem] border border-slate-200 bg-white px-5 py-4 shadow-sm sm:grid-cols-[1fr_auto] sm:items-center sm:px-6"
                         >
-                            {filterOptions.map((option) => (
-                                <option key={option.value} value={option.value}>
-                                    {option.label}
-                                </option>
-                            ))}
-                        </select>
+                            <div className="flex items-center gap-4">
+                                <span className={`flex h-12 w-12 items-center justify-center rounded-2xl text-lg ${iconClass}`}>
+                                    <Icon />
+                                </span>
+                                <div>
+                                    <h2 className="text-lg font-bold text-slate-900">{entry.title}</h2>
+                                    <p className="mt-1 text-sm capitalize text-slate-500">{entry.type}</p>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-2 text-sm font-medium text-slate-500 sm:justify-end">
+                                <FiCalendar />
+                                <span>{formatDate(entry.date)}</span>
+                            </div>
+                        </article>
+                    );
+                })}
+
+                {visibleEntries.length === 0 && (
+                    <div className="rounded-[1.5rem] border border-dashed border-slate-300 bg-white px-6 py-12 text-center text-slate-500 shadow-sm">
+                        No timeline entries match your current filter.
                     </div>
-                </div>
-
-                <div className="mt-4 space-y-3">
-                    {visibleEntries.map((entry) => (
-                        <TimelineCard key={entry.id} entry={entry} />
-                    ))}
-                </div>
-            </section>
-
-            <Footer />
-        </div>
+                )}
+            </div>
+        </section>
     );
 };
 
